@@ -1,5 +1,5 @@
 // List of all the actions that are available to either player
-const ALL_ACTIONS = ["rock", "paper", "scissors"];
+const ALL_ACTIONS = ["rock", "paper", "scissors", "spock", "lizard"];
 
 function getRandomActionIndex() {
     return Math.floor(Math.random() * ALL_ACTIONS.length);
@@ -22,6 +22,7 @@ function getRoundResult(player_action, computer_action_index) {
 
     // Based on the computers action, calculate the action index the player would needs to win 
     const player_winning_action = (computer_action_index + 1) % ALL_ACTIONS.length;
+    const player_alternate_winning_action = (computer_action_index + 3) % ALL_ACTIONS.length;
 
     // Determine which player wins, and return message stating the round result
     switch (player_action_index) {
@@ -29,6 +30,7 @@ function getRoundResult(player_action, computer_action_index) {
             return `You drew, the computer also chose ${player_action}`;
             break;
         case player_winning_action:
+        case player_alternate_winning_action:
             return `You won, ${player_action} beats ${ALL_ACTIONS[computer_action_index]}`;
             break;
         default:
