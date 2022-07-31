@@ -13,7 +13,7 @@ function getComputerActionIndex() {
     return getRandomActionIndex();
 }
 
-function converActionToIndex(action) {
+function convertActionToIndex(action) {
     return ALL_ACTIONS.findIndex( (cmp) => {return cmp === action} );
 }
 
@@ -55,7 +55,7 @@ function getPlayerActionIndex() {
         let user_action = prompt("Rock Paper Scissors Lizard or Spock?\nEnter your choice:");
 
         if (!!user_action) { // If user action prompt not empty or null
-            let user_action_index = converActionToIndex(user_action.toLowerCase());
+            let user_action_index = convertActionToIndex(user_action.toLowerCase());
             if (user_action_index != -1) {
                 return user_action_index;
             }
