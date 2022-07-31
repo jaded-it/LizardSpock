@@ -13,8 +13,9 @@ function getComputerActionIndex() {
     return getRandomActionIndex();
 }
 
+// Converts an action (string) to an action_index (integer)
 function convertActionToIndex(action) {
-    return ALL_ACTIONS.findIndex( (cmp) => {return cmp === action} );
+    return ALL_ACTIONS.findIndex( (current_item) => {return current_item === action} );
 }
 
 // Determines which verb to use for the winning action e.g. cuts, disproves, vaporizes, etc.
@@ -31,7 +32,11 @@ function getRoundResult(player_action_index, computer_action_index) {
     let player_action = ALL_ACTIONS[player_action_index];
     let computer_action = ALL_ACTIONS[computer_action_index];
 
-    // Based on the computers action, calculate the action index the player would needs to win 
+    // Based on the computers action, calculate the action index the player would needs to win
+        /* This works because if we consider each action in a circle where rock = 0, and paper = 1,
+        then if the computers action index is 0 (rock), then the player needs 0 + 1 (paper) to win.
+        +3 is used for the new additions to the game. If the computer index is 0 (rock),
+        then another winning option is 0 + 3 (spock). Modulo is used to wrap the array into a circle */
     const player_winning_action = (computer_action_index + 1) % ALL_ACTIONS.length;
     const player_alternate_winning_action = (computer_action_index + 3) % ALL_ACTIONS.length;
 
