@@ -26,12 +26,10 @@ function getVictoryVerb(winning_action_index, losing_action_index) {
     }
 }
 
-function getRoundResult(player_action, computer_action_index) {
-    // Normalize player input
-    player_action = player_action.toLowerCase();
-
-    // Convert to numeric format to simplify determining round result
-    const player_action_index = converActionToIndex(player_action);
+function getRoundResult(player_action_index, computer_action_index) {
+    // Convert action indexes to strings for both players
+    let player_action = ALL_ACTIONS[player_action_index];
+    let computer_action = ALL_ACTIONS[computer_action_index];
 
     // Based on the computers action, calculate the action index the player would needs to win 
     const player_winning_action = (computer_action_index + 1) % ALL_ACTIONS.length;
@@ -45,10 +43,23 @@ function getRoundResult(player_action, computer_action_index) {
         case player_winning_action:
         case player_alternate_winning_action:
             victory_verb = getVictoryVerb(player_action_index, computer_action_index);
-            return [1, `You won because ${player_action} ${victory_verb} ${ALL_ACTIONS[computer_action_index]}`];
+            return [1, `You won because ${player_action} ${victory_verb} ${computer_action}`];
         default:
             victory_verb = getVictoryVerb(computer_action_index, player_action_index);
-            return [2, `You lost because ${ALL_ACTIONS[computer_action_index]} ${victory_verb} ${player_action}`];
+            return [2, `You lost because ${computer_action} ${victory_verb} ${player_action}`];
+    }
+}
+
+function getPlayerActionIndex() {
+    for (;;) {
+        let user_action = prompt("Rock Paper Scissors Lizard or Spock?\nEnter your choice:");
+
+        if (!!user_action) { // If user action prompt not empty or null
+            let user_action_index = converActionToIndex(user_action.toLowerCase());
+            if (user_action_index != -1) {
+                return user_action_index;
+            }
+        }
     }
 }
 
@@ -58,8 +69,13 @@ function game() {
     let round_number = 1;
     // First to 3 game
     for (;; round_number++) {
-        let round_result = getRoundResult('lizard', getComputerActionIndex());
-        console.log(round_result[1]); // Output round result message
+        // Get the actions of both players
+        const player_action_index = getPlayerActionIndex();
+        const computer_action_index = getComputerActionIndex();
+
+        // Calculate the round result
+        let round_result = getRoundResult(player_action_index, computer_action_index);
+        console.log(`You played: ${ALL_ACTIONS[player_action_index]}\n${round_result[1]}`); // Output round result message
 
         // Get who one and increment respectively
         switch (round_result[0]) {
