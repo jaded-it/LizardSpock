@@ -20,10 +20,20 @@ function convertActionToIndex(action) {
 
 // Determines which verb to use for the winning action e.g. cuts, disproves, vaporizes, etc.
 function getVictoryVerb(winning_action_index, losing_action_index) {
-    if (Math.abs(winning_action_index - losing_action_index) > 1) {
-        return ALL_ACTION_VERBS[winning_action_index + ALL_ACTIONS.length];
-    } else {
-        return ALL_ACTION_VERBS[winning_action_index];
+    let distance_to_left;
+    if (winning_action_index < losing_action_index) {  // calculated distance to the left only if wrapping
+        distance_to_left = Math.abs(winning_action_index + ALL_ACTIONS.length - losing_action_index);
+    } else {  // calculates distance to the left only if not wrapping
+        distance_to_left = Math.abs(winning_action_index - losing_action_index); 
+    }
+
+    switch (distance_to_left) {
+        case 1:
+            return ALL_ACTION_VERBS[winning_action_index];
+            break;
+        case 3:
+            return ALL_ACTION_VERBS[winning_action_index + ALL_ACTIONS.length];
+            break;
     }
 }
 
@@ -96,10 +106,10 @@ function game() {
 
         // If either player has won, display appropriate message, then break the game loop
         if (player_win_count >= 3) {
-            console.log("\nVictory! You won the LizardSpock best of 5!");
+            console.log("\nVictory! You won the LizardSpock championship!");
             break;
         } else if (computer_win_count >= 3) {
-            console.log("\nDefeat! You lost the LizardSpock best of 5 :C");
+            console.log("\nDefeat! You lost the LizardSpock championship :C");
             break;
         }
     }
