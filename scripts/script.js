@@ -77,7 +77,7 @@ function game() {
         let round_result = getRoundResult(player_action_index, computer_action_index);
         console.log(`You played: ${ALL_ACTIONS[player_action_index]}\n${round_result[1]}`); // Output round result message
 
-        // Get who one and increment respectively
+        // Get who won and increment respectively
         switch (round_result[0]) {
             case 1: // Player victory
                 player_win_count++
@@ -89,7 +89,7 @@ function game() {
                 break;
         }
 
-        // If either player has one, display appropriate message, then break the game loop
+        // If either player has won, display appropriate message, then break the game loop
         if (player_win_count >= 3) {
             console.log("\nVictory! You won the LizardSpock best of 5!");
             break;
