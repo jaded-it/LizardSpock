@@ -25,7 +25,23 @@ body {
     margin: 16px 0 0 0;
 }
 
-#message-section {
+#message-section, #game-over-section {
     text-align: center;
     margin: 0 0 16px 0;
+}
+
+.game-container {
+    width: 275px;
+}
+
+#game-content {
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+}
+
+.game-buttons {
+    display: flex;
+    justify-content: space-between;
 }
