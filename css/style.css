@@ -22,5 +22,10 @@ body {
 #main-display {
     height: 5cm;
     background-color:pink;
-    margin: 16px 0;
+    margin: 16px 0 0 0;
+}
+
+#message-section {
+    text-align: center;
+    margin: 0 0 16px 0;
 }

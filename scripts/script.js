@@ -5,6 +5,20 @@ const ALL_ACTIONS = ["rock", "paper", "scissors", "spock", "lizard"];
 const ALL_ACTION_VERBS = ["crushes", "covers", "cuts", "smashes", "poisons",
                           "crushes", "disproves", "decapitates", "vaporizes", "eats"]
 
+let player_win_count = 0;
+let computer_win_count = 0;
+let round_number = 1;
+
+let message = 'Select your move!';
+
+const game_counter = document.querySelector("#games-played");
+const win_counter = document.querySelector("#wins");
+const loss_counter = document.querySelector("#losses");
+const draw_counter = document.querySelector("#draws");
+
+const message_section = document.querySelector("#message-section");
+
+
 function getRandomActionIndex() {
     return Math.floor(Math.random() * ALL_ACTIONS.length);
 }
@@ -119,12 +133,14 @@ function alert_game() {
     console.log(`Rounds played: ${round_number}\nWins: ${player_win_count}\nLosses: ${computer_win_count}\nDraws: ${draw_count}`);
 }
 
-// Play game
-//game();
+function updateStats() {
+    game_counter.textContent = `Game #${round_number}`;
+    win_counter.textContent = `Wins: ${player_win_count}`;
+    loss_counter.textContent = `Losses: ${computer_win_count}`;
+    draw_counter.textContent = `Draws: ${round_number - player_win_count - computer_win_count - 1}`;
 
-let player_win_count = 0;
-let computer_win_count = 0;
-let round_number = 1;
+    message_section.textContent = `${message}`;
+}
 
 function playerSelect(player_action_index) {
     const computer_action_index = getComputerActionIndex();
@@ -145,15 +161,23 @@ function playerSelect(player_action_index) {
             break;
     }
 
+    message = round_result[1];
+
     // If either player has won, display appropriate message, then break the game loop
     // if (player_win_count >= 3) {
     //     console.log("\nVictory! You won the LizardSpock championship!");
     // } else if (computer_win_count >= 3) {
     //     console.log("\nDefeat! You lost the LizardSpock championship :C");
     // }
+
+    // Update the scores display
+    round_number++;
+    updateStats();
 }
 
 function game() {
+    updateStats();
+    
     // Add event listeners to buttons
     let player_input_buttons = document.querySelectorAll(".player-input");
     player_input_buttons.forEach(button => {
@@ -163,5 +187,6 @@ function game() {
         });
     })
 }
+
 
 game();
