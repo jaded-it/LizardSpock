@@ -78,7 +78,7 @@ function getPlayerActionIndex() {
     }
 }
 
-function game() {
+function alert_game() {
     let player_win_count = 0;
     let computer_win_count = 0;
     let round_number = 1;
@@ -117,6 +117,51 @@ function game() {
     // Output game stats
     const draw_count = round_number - player_win_count - computer_win_count;
     console.log(`Rounds played: ${round_number}\nWins: ${player_win_count}\nLosses: ${computer_win_count}\nDraws: ${draw_count}`);
+}
+
+// Play game
+//game();
+
+let player_win_count = 0;
+let computer_win_count = 0;
+let round_number = 1;
+
+function playerSelect(player_action_index) {
+    const computer_action_index = getComputerActionIndex();
+
+    // Calculate the round result
+    let round_result = getRoundResult(player_action_index, computer_action_index);
+    console.log(`You played: ${ALL_ACTIONS[player_action_index]}\n${round_result[1]}`); // Output round result message
+
+    // Get who won and increment respectively
+    switch (round_result[0]) {
+        case 1: // Player victory
+            player_win_count++
+            break;
+        case 2: // Computer victory
+            computer_win_count++
+            break;
+        default: // Draw
+            break;
+    }
+
+    // If either player has won, display appropriate message, then break the game loop
+    // if (player_win_count >= 3) {
+    //     console.log("\nVictory! You won the LizardSpock championship!");
+    // } else if (computer_win_count >= 3) {
+    //     console.log("\nDefeat! You lost the LizardSpock championship :C");
+    // }
+}
+
+function game() {
+    // Add event listeners to buttons
+    let player_input_buttons = document.querySelectorAll(".player-input");
+    player_input_buttons.forEach(button => {
+        let player_index = ALL_ACTIONS.findIndex(item => item === button.id);
+        button.addEventListener("click", () => {
+            playerSelect(player_index);
+        });
+    })
 }
 
 game();
