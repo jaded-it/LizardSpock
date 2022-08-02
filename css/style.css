@@ -1,0 +1,26 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    height: 100vh;
+}
+
+#games-played {
+    width: 100%;
+    text-align: center;
+}
+
+#game-stats ul {
+    list-style-type: none;
+    padding: 0;
+
+    display: flex;
+    justify-content: space-between;
+}
+
+#main-display {
+    height: 5cm;
+    background-color:pink;
+    margin: 16px 0;
+}
