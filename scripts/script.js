@@ -89,19 +89,6 @@ function getRoundResult(player_action_index, computer_action_index) {
     }
 }
 
-function getPlayerActionIndex() {
-    for (;;) {
-        let user_action = prompt("Rock Paper Scissors Lizard or Spock?\nEnter your choice:");
-
-        if (!!user_action) { // If user action prompt not empty or null
-            let user_action_index = convertActionToIndex(user_action.toLowerCase());
-            if (user_action_index != -1) {
-                return user_action_index;
-            }
-        }
-    }
-}
-
 function updateStats() {
     game_counter.textContent = `Round: ${round_number}`;
     win_counter.textContent = `Wins: ${player_win_count}`;
@@ -153,7 +140,7 @@ function playerSelect(player_action_index) {
         is_game_over = true;
     }
 
-    // Update the scores display
+    // Update the display
     round_number++;
     updateStats();
 }
@@ -161,10 +148,10 @@ function playerSelect(player_action_index) {
 function game() {
     updateStats();
     
-    // Add event listeners to buttons
+    // Add event listeners to player buttons
     let player_input_buttons = document.querySelectorAll(".player-input");
     player_input_buttons.forEach(button => {
-        let player_index = ALL_ACTIONS.findIndex(item => item === button.id);
+        let player_index = ALL_ACTIONS.findIndex(item => item === button.id); // the html id corresponds to an action string
         button.addEventListener("click", () => {
             playerSelect(player_index);
         });
