@@ -6,6 +6,17 @@ body {
     height: 100vh;
 }
 
+.game-container {
+    width: 24em;
+}
+
+h3 {
+    text-align: center;
+    border-bottom-style: solid;
+    border-width: 1px;
+    border-color: grey;
+}
+
 #games-played {
     font-weight: bold;
 }
@@ -38,7 +49,8 @@ body {
 
 .game-buttons {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    flex-wrap: wrap;
     gap: 10px;
 }
 
@@ -66,6 +78,14 @@ body {
 
 #spock {
     background-color: lightblue;
+}
+
+#zombie {
+    background-color: burlywood;
+}
+
+#LHC {
+    background-color: lightgrey;
 }
 
 .player-input img {

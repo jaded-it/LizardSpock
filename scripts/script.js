@@ -1,9 +1,10 @@
 // List of all the actions that are available to either player
-const ALL_ACTIONS = ["rock", "paper", "scissors", "spock", "lizard"];
+const ALL_ACTIONS = ["rock", "paper", "scissors", "spock", "zombie", "LHC", "lizard"];
 
 // List of all the verbs for winning combinations
-const ALL_ACTION_VERBS = ["crushes", "covers", "cuts", "smashes", "poisons",
-                          "crushes", "disproves", "decapitates", "vaporizes", "eats"]
+const ALL_ACTION_VERBS = ["crushes", "covers", "cuts", "bends", "brains", "cures", "evades",
+                          "trips", "reprograms", "decapitates", "vaporizes", "shreds", "magnetizes", "poisons",
+                          "blunts", "disproves", "stabs", "deactivates", "swallows", "nukes", "eats"]
 
 let player_win_count = 0;
 let computer_win_count = 0;
@@ -52,6 +53,9 @@ function getVictoryVerb(winning_action_index, losing_action_index) {
         case 3:
             return ALL_ACTION_VERBS[winning_action_index + ALL_ACTIONS.length];
             break;
+        case 5:
+            return ALL_ACTION_VERBS[winning_action_index + (ALL_ACTIONS.length * 2)];
+            break;
     }
 }
 
@@ -67,6 +71,7 @@ function getRoundResult(player_action_index, computer_action_index) {
         then another winning option is 0 + 3 (spock). Modulo is used to wrap the array into a circle */
     const player_winning_action = (computer_action_index + 1) % ALL_ACTIONS.length;
     const player_alternate_winning_action = (computer_action_index + 3) % ALL_ACTIONS.length;
+    const player_extra_winning_action = (computer_action_index + 5) % ALL_ACTIONS.length;
 
     // Determine which player wins, and return message stating the round result
     let victory_verb;
@@ -75,6 +80,7 @@ function getRoundResult(player_action_index, computer_action_index) {
             return [0, `You drew because you both chose ${player_action}`];
         case player_winning_action:
         case player_alternate_winning_action:
+        case player_extra_winning_action:
             victory_verb = getVictoryVerb(player_action_index, computer_action_index);
             return [1, `You won because ${player_action} ${victory_verb} ${computer_action}`];
         default:
