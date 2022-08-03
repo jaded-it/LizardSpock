@@ -28,7 +28,7 @@
                 <div id="main-display">
                     <!-- Tekken style round tracker -->
                     <div id="round-tracker">
-                        <div class="player-name">Player</div>
+                        <div class="name player-name">Player</div>
                         <div class="scores player-scores">
                             <div class="score pip1"></div>
                             <div class="score pip2"></div>
@@ -39,19 +39,29 @@
                             <div class="score pip2"></div>
                             <div class="score pip3"></div>
                         </div>
-                        <div class="computer-name">Computer</div>
+                        <div class="name computer-name">Computer</div>
                     </div>
     
                     <!-- Pokemon style combat window -->
                     <div id="battle-window">
                         <!-- Top section, opponent computer -->
-                        <div id="ai-segment">
-    
+                        <div id="computer-segment" class="info">
+                            <!-- computer icon -->
+                            <img class="player-icon" src="./images/crown.png">
+                            <img class="computer-icon" src="./images/computer.png">
+                        </div>
+
+                        <!-- Middle section with choices and combat -->
+                        <div id="combat-segment">
+                            <div class="choice player-choice"></div>
+                            <div class="combat-display"></div>
+                            <div class="choice computer-choice"></div>
                         </div>
     
                         <!-- Bottom section, player -->
-                        <div id="player-segment">
-                            
+                        <div id="player-segment" class="info">
+                            <!-- player icon -->
+
                         </div>
                     </div>
                 </div>

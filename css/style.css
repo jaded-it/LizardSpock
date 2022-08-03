@@ -30,7 +30,7 @@ h3 {
 }
 
 #main-display {
-    height: 5cm;
+    /* height: 5cm; */
     background-color:pink;
     margin: 16px 0 0 0;
 
@@ -61,6 +61,10 @@ h3 {
     border-width: 1.5px;
     border-color: black;
     border-radius: 100%;
+}
+
+.name {
+    text-align: center;
 }
 
 .player-name {
@@ -136,4 +140,32 @@ img {
 .player-input img {
     width: 75px;
     height: 75px;
+}
+
+#battle-window {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.info img {
+    height: 70px;
+}
+
+#combat-segment {
+    display: flex;
+    justify-content: space-between;
+
+    margin: 16px 16px;
+}
+
+.choice {
+    width: 75px;
+    height: 75px;
+    background-color: black;
+}
+
+#computer-segment {
+    display: flex;
+    justify-content: space-between;
 }
