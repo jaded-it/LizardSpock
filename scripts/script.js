@@ -97,7 +97,7 @@ function getPlayerActionIndex() {
 }
 
 function updateStats() {
-    game_counter.textContent = `Game #${round_number}`;
+    game_counter.textContent = `Round: ${round_number}`;
     win_counter.textContent = `Wins: ${player_win_count}`;
     loss_counter.textContent = `Losses: ${computer_win_count}`;
     draw_counter.textContent = `Draws: ${round_number - player_win_count - computer_win_count - 1}`;
