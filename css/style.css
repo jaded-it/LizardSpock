@@ -59,8 +59,17 @@ h3 {
     background-color: lightgray;
     border-style: solid;
     border-width: 1.5px;
-    border-color: black;
+    border-color: slategray;
     border-radius: 100%;
+
+    box-shadow: 0px 0px 4px black;
+}
+
+.score.pipglow {
+    background-color: yellow;
+    border-color: goldenrod;
+
+    box-shadow: 0px 0px 4px purple;
 }
 
 .name {

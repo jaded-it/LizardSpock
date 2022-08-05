@@ -23,6 +23,10 @@ const draw_counter = document.querySelector("#draws");
 const message_section = document.querySelector("#message-section");
 const game_over_section = document.querySelector("#game-over-section");
 
+const player_score_pips = document.querySelectorAll(".player.scores .score");
+const computer_score_pips = document.querySelectorAll(".computer.scores .score");
+// console.log(player_scores)
+// player_scores[2].classList.add("pipglow");
 
 function getRandomActionIndex() {
     return Math.floor(Math.random() * ALL_ACTIONS.length);
@@ -95,6 +99,14 @@ function updateStats() {
     loss_counter.textContent = `Losses: ${computer_win_count}`;
     draw_counter.textContent = `Draws: ${round_number - player_win_count - computer_win_count - 1}`;
 
+    // Update display pips
+    for (let i = 0; i < player_win_count; i++) {
+        player_score_pips[2 - i].classList.add("pipglow");
+    }
+    for (let i = 0; i < computer_win_count; i++) {
+        computer_score_pips[i].classList.add("pipglow");
+    }
+
     message_section.textContent = `${message}`;
     game_over_section.textContent = `${game_over_message}`;
 }
@@ -107,6 +119,12 @@ function playerSelect(player_action_index) {
         round_number = 1;
         game_over_message = '';
         is_game_over = false;
+
+        // Reset pips
+        for (let i = 0; i < 3; i++) {
+            player_score_pips[i].classList.remove("pipglow");
+            computer_score_pips[i].classList.remove("pipglow");
+        }
     }
 
     const computer_action_index = getComputerActionIndex();
