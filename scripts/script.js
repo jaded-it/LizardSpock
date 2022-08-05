@@ -1,5 +1,7 @@
 // List of all the actions that are available to either player
 const ALL_ACTIONS = ["rock", "paper", "scissors", "spock", "zombie", "LHC", "lizard"];
+const ALL_ACTIONS_IMAGE_PATH = ["./images/rock.svg", "./images/paper.svg", "./images/scissors.svg",
+                "./images/spock.svg", "./images/zombie.svg", "./images/lhc.svg", "./images/lizard.svg"];
 
 // List of all the verbs for winning combinations
 const ALL_ACTION_VERBS = ["crushes", "covers", "cuts", "bends", "brains", "cures", "evades",
@@ -163,8 +165,30 @@ function playerSelect(player_action_index) {
     updateStats();
 }
 
+let spinner_iteration = 0;
+
+function imageUpdate() {
+    let player_choice_img = document.querySelector(".player-choice-display");
+    let computer_choice_img = document.querySelector(".computer-choice-display");
+
+    switch (spinner_iteration % 2) {
+        case 0:
+            let player_img_index = spinner_iteration / 2;
+            player_choice_img.src = `${ALL_ACTIONS_IMAGE_PATH[player_img_index]}`;
+            break;
+        default:
+            let computer_img_index = (Math.floor(spinner_iteration / 2) + 3) % ALL_ACTIONS.length;
+            computer_choice_img.src = `${ALL_ACTIONS_IMAGE_PATH[computer_img_index]}`;
+            break;
+    }
+}
+
 function game() {
     updateStats();
+    let image_spinner_interval = setInterval(() => {
+        spinner_iteration = (spinner_iteration + 1) % (ALL_ACTIONS.length * 2);
+        imageUpdate();
+    }, 100);
     
     // Add event listeners to player buttons
     let player_input_buttons = document.querySelectorAll(".player-input");

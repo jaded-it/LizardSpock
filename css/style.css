@@ -168,10 +168,13 @@ img {
     margin: 16px 16px;
 }
 
-.choice {
+.choice img {
     width: 75px;
     height: 75px;
-    background-color: black;
+
+    background-color: rgb(255, 255, 255);
+    border-radius: 8px;
+
 }
 
 #computer-segment {
