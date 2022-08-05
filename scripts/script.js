@@ -95,6 +95,8 @@ function getRoundResult(player_action_index, computer_action_index) {
     }
 }
 
+let is_buttons_locked = false;
+
 function updateStats() {
     game_counter.textContent = `Round: ${round_number}`;
     win_counter.textContent = `Wins: ${player_win_count}`;
@@ -109,11 +111,21 @@ function updateStats() {
         computer_score_pips[i].classList.add("pipglow");
     }
 
+
+    let player_input_buttons = document.querySelectorAll(".player-input");
+    player_input_buttons.forEach((button) => {
+        if (is_buttons_locked) {
+            button.classList.add("lock-input");
+        } else {
+            button.classList.remove("lock-input");
+        }
+    })
+
     message_section.textContent = `${message}`;
     game_over_section.textContent = `${game_over_message}`;
 }
 
-function playerSelect(player_action_index) {
+function playerSelect(player_action_index, computer_action_index) {
     // Reset stats if necessary
     if (is_game_over) {
         player_win_count = 0;
@@ -128,8 +140,6 @@ function playerSelect(player_action_index) {
             computer_score_pips[i].classList.remove("pipglow");
         }
     }
-
-    const computer_action_index = getComputerActionIndex();
 
     // Calculate the round result
     let round_result = getRoundResult(player_action_index, computer_action_index);
@@ -165,6 +175,39 @@ function playerSelect(player_action_index) {
     updateStats();
 }
 
+let is_player_fast_rolling = false;
+let is_player_selected = false;
+let player_fast_iterator = 0;
+let player_selection = 0;
+
+let is_computer_fast_rolling = false;
+let is_computer_selected = false;
+let computer_fast_iterator = 0;
+let computer_selection = 0;
+
+function fastSelection() {
+    let player_choice_img = document.querySelector(".player-choice-display");
+    let computer_choice_img = document.querySelector(".computer-choice-display");
+
+    if (is_player_fast_rolling && !is_player_selected) {
+        player_choice_img.src = `${ALL_ACTIONS_IMAGE_PATH[player_fast_iterator]}`;
+
+        if (player_fast_iterator === player_selection) {
+            is_player_selected = true;
+            computerSelect();
+        }
+    }
+
+    if (is_computer_fast_rolling && !is_computer_selected) {
+        computer_choice_img.src = `${ALL_ACTIONS_IMAGE_PATH[computer_fast_iterator]}`;
+
+        if (computer_fast_iterator === computer_selection) {
+            is_computer_selected = true;
+            playerSelect(player_selection, computer_selection);
+        }
+    }
+}
+
 let spinner_iteration = 0;
 
 function imageUpdate() {
@@ -173,14 +216,39 @@ function imageUpdate() {
 
     switch (spinner_iteration % 2) {
         case 0:
-            let player_img_index = spinner_iteration / 2;
-            player_choice_img.src = `${ALL_ACTIONS_IMAGE_PATH[player_img_index]}`;
+            if (!is_player_fast_rolling && !is_player_selected) {
+                let player_img_index = spinner_iteration / 2;
+                player_choice_img.src = `${ALL_ACTIONS_IMAGE_PATH[player_img_index]}`;
+            }
             break;
         default:
-            let computer_img_index = (Math.floor(spinner_iteration / 2) + 3) % ALL_ACTIONS.length;
-            computer_choice_img.src = `${ALL_ACTIONS_IMAGE_PATH[computer_img_index]}`;
+            if (!is_computer_fast_rolling && !is_computer_selected) {
+                let computer_img_index = (Math.floor(spinner_iteration / 2) + 3) % ALL_ACTIONS.length;
+                computer_choice_img.src = `${ALL_ACTIONS_IMAGE_PATH[computer_img_index]}`;
+            }
             break;
     }
+}
+
+function computerSelect() {
+    if (is_computer_fast_rolling || is_computer_selected) return;
+
+    computer_action_index = getComputerActionIndex();
+
+    computer_fast_iterator = (computer_action_index + ALL_ACTIONS.length + 1) % ALL_ACTIONS.length;
+    computer_selection = computer_action_index;
+    is_computer_fast_rolling = true;
+}
+
+function selectButton(player_action_index) {
+    if (is_player_fast_rolling || is_player_selected) return;
+
+    is_buttons_locked = true;
+    updateStats();
+
+    player_fast_iterator = (player_action_index + ALL_ACTIONS.length + 3) % ALL_ACTIONS.length;
+    player_selection = player_action_index;
+    is_player_fast_rolling = true;
 }
 
 function game() {
@@ -188,16 +256,41 @@ function game() {
     let image_spinner_interval = setInterval(() => {
         spinner_iteration = (spinner_iteration + 1) % (ALL_ACTIONS.length * 2);
         imageUpdate();
-    }, 100);
+    }, 150);
+
+    let fast_spinner_interval = setInterval(() => {
+        player_fast_iterator = (player_fast_iterator + 1) % ALL_ACTIONS.length;
+        computer_fast_iterator = (computer_fast_iterator + 1) % ALL_ACTIONS.length
+        fastSelection();
+    }, 50);
     
     // Add event listeners to player buttons
     let player_input_buttons = document.querySelectorAll(".player-input");
     player_input_buttons.forEach(button => {
         let player_index = ALL_ACTIONS.findIndex(item => item === button.id); // the html id corresponds to an action string
         button.addEventListener("click", () => {
-            playerSelect(player_index);
+            selectButton(player_index)
+            //playerSelect(player_index);
         });
     })
+
+    let nextButton = document.querySelector(".next-round");
+    nextButton.addEventListener("click", () => {
+        if (!is_player_selected || !is_computer_selected) return;
+        is_buttons_locked = false;
+
+        is_player_fast_rolling = false;
+        is_player_selected = false;
+        player_fast_iterator = 0;
+        player_selection = 0;
+
+        is_computer_fast_rolling = false;
+        is_computer_selected = false;
+        computer_fast_iterator = 0;
+        computer_selection = 0;
+
+        updateStats();
+    });
 }
 
 

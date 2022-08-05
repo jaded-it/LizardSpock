@@ -114,36 +114,36 @@ h3 {
     border-radius: 100%;
 }
 
-#rock {
+.rock {
     background-color: lightcoral;
 }
 
-#paper {
+.paper {
     background-color: lightgoldenrodyellow;
 }
 
-#scissors {
+.scissors {
     background-color: plum;
 }
 
-#lizard {
+.lizard {
     background-color: lightgreen;
 }
 
-#spock {
+.spock {
     background-color: lightblue;
 }
 
-#zombie {
+.zombie {
     background-color: burlywood;
+}
+
+.LHC {
+    background-color: lightgrey;
 }
 
 img {
     stroke-width: 14px;
-}
-
-#LHC {
-    background-color: lightgrey;
 }
 
 .player-input img {
@@ -180,4 +180,8 @@ img {
 #computer-segment {
     display: flex;
     justify-content: space-between;
+}
+
+.lock-input {
+    background-color: #c9c9c9;
 }
