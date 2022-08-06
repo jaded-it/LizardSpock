@@ -83,15 +83,15 @@ function getRoundResult(player_action_index, computer_action_index) {
     let victory_verb;
     switch (player_action_index) {
         case computer_action_index:
-            return [0, `You drew because you both chose ${player_action}`];
+            return [0, `Both chose ${player_action}`];
         case player_winning_action:
         case player_alternate_winning_action:
         case player_extra_winning_action:
             victory_verb = getVictoryVerb(player_action_index, computer_action_index);
-            return [1, `You won because ${player_action} ${victory_verb} ${computer_action}`];
+            return [1, `${player_action} ${victory_verb} ${computer_action}`];
         default:
             victory_verb = getVictoryVerb(computer_action_index, player_action_index);
-            return [2, `You lost because ${computer_action} ${victory_verb} ${player_action}`];
+            return [2, `${computer_action} ${victory_verb} ${player_action}`];
     }
 }
 
@@ -111,6 +111,13 @@ function updateStats() {
         computer_score_pips[i].classList.add("pipglow");
     }
 
+    // Set text and visibility of the next round / game button
+    let nextButton = document.querySelector(".next-round");
+    if (is_game_over) {
+        nextButton.textContent = "New Game";
+    } else {
+        nextButton.textContent = "Next Round";
+    }
 
     let player_input_buttons = document.querySelectorAll(".player-input");
     player_input_buttons.forEach((button) => {
@@ -126,34 +133,29 @@ function updateStats() {
 }
 
 function playerSelect(player_action_index, computer_action_index) {
-    // Reset stats if necessary
-    if (is_game_over) {
-        player_win_count = 0;
-        computer_win_count = 0;
-        round_number = 1;
-        game_over_message = '';
-        is_game_over = false;
 
-        // Reset pips
-        for (let i = 0; i < 3; i++) {
-            player_score_pips[i].classList.remove("pipglow");
-            computer_score_pips[i].classList.remove("pipglow");
-        }
-    }
 
     // Calculate the round result
     let round_result = getRoundResult(player_action_index, computer_action_index);
     console.log(`You played: ${ALL_ACTIONS[player_action_index]}\n${round_result[1]}`); // Output round result message
 
+    let nextButton = document.querySelector(".next-round");
+    nextButton.classList.remove("hidden");
+    let combat_state_text = document.querySelector(".combat-state");
+    combat_state_text.classList.remove("hidden");
+
     // Get who won and increment respectively
     switch (round_result[0]) {
         case 1: // Player victory
             player_win_count++
+            combat_state_text.textContent = "Victory!";
             break;
         case 2: // Computer victory
             computer_win_count++
+            combat_state_text.textContent = "Defeat!";
             break;
         default: // Draw
+            combat_state_text.textContent = "Draw!";
             break;
     }
 
@@ -277,6 +279,26 @@ function game() {
     let nextButton = document.querySelector(".next-round");
     nextButton.addEventListener("click", () => {
         if (!is_player_selected || !is_computer_selected) return;
+
+        // Reset stats if necessary
+        if (is_game_over) {
+            player_win_count = 0;
+            computer_win_count = 0;
+            round_number = 1;
+            game_over_message = '';
+            is_game_over = false;
+
+            // Reset pips
+            for (let i = 0; i < 3; i++) {
+                player_score_pips[i].classList.remove("pipglow");
+                computer_score_pips[i].classList.remove("pipglow");
+            }
+        }
+
+        let combat_state_text = document.querySelector(".combat-state");
+        nextButton.classList.add("hidden");
+        combat_state_text.classList.add("hidden");
+        message = "Select your move!";
         is_buttons_locked = false;
 
         is_player_fast_rolling = false;
