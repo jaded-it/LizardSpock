@@ -1,16 +1,13 @@
 :root {
-    --header-bg:#A31621;
-    --header-text: white;
-
-    --body-bg: white;
-
-    --game-container-bg: grey;
-    --game-header-bg: rgb(216, 69, 69);
-    --game-display-bg: white;
+    --header-bg: #0B132B;
+    --header-text: #FCF7F8;
+    --body-bg: #3A506B;
+    --game-container-bg: #949a91;
+    --game-header-bg: #252825;
+    --game-display-bg: #d4d4d4;
     --choice-spinner-bg: white;
-
-    --footer-bg:#A31621;
-    --footer-text: white;
+    --footer-bg: #131724;
+    --footer-text: #FCF7F8;
 }
 
 body {
@@ -27,9 +24,19 @@ body {
     padding: 0;
 }
 
+.game-buttons, #game-over-section, #main-display, #game-stats {
+    padding: 0px 12px;
+}
+
+.game-buttons {
+    padding-bottom: 12px;
+}
+
 h3 {
     margin-top: 0;
     background-color: var(--game-header-bg);
+    padding: 12px 6px;
+    color: white;
 }
 
 .header, .footer {
@@ -37,6 +44,7 @@ h3 {
 
     display: flex;
     justify-content: center;
+    box-shadow: 0px 0px 8px 0px black;
 }
 
 .header {
@@ -56,16 +64,19 @@ a {
 }
 
 .game-container {
+    border-radius: 8px;
     width: 24em;
 
     background-color: var(--game-container-bg);
+    box-shadow: 0px 0px 8px 0px black;
 }
 
 h3 {
+    border-radius: 8px 8px 0 0;
     text-align: center;
-    border-bottom-style: solid;
-    border-width: 1px;
-    border-color: grey;
+    /* border-bottom-style: solid; */
+    /* border-width: 1px; */
+    /* border-color: grey; */
 }
 
 #games-played {
@@ -107,7 +118,7 @@ h3 {
     height: 15px;
     width: 15px;
 
-    background-color: lightgray;
+    background-color: #b7b7b7;
     border-style: solid;
     border-width: 1.5px;
     border-color: slategray;
@@ -247,7 +258,7 @@ img {
 }
 
 .lock-input {
-    background-color: #c9c9c9;
+    background-color: #e1e1e1;
 }
 
 .combat-state {
