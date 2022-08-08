@@ -1,9 +1,11 @@
 body {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+
+    justify-content: space-between;
     align-items: center;
 
-    height: 100vh;
+    height: 98.5vh;
 }
 
 .game-container {
@@ -230,4 +232,28 @@ img {
 .display.anim-radius {
     border-radius: 50%;
     box-shadow: 0 0 12px black;
+}
+
+.header .inner {
+    width: 28em;
+}
+
+.header .inner, ul {
+    display: flex;
+    justify-content: space-between;
+    padding: 0;
+    margin: 0;
+}
+
+ul {
+    gap: 30px;
+}
+
+.header a {
+    text-decoration: none;
+    color: black;
+}
+
+ul {
+    list-style-type: none;
 }
