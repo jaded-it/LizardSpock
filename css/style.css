@@ -1,15 +1,64 @@
+:root {
+    --header-bg:#A31621;
+    --header-text: white;
+
+    --body-bg: white;
+
+    --game-container-bg: grey;
+    --game-header-bg: rgb(216, 69, 69);
+    --game-display-bg: white;
+    --choice-spinner-bg: white;
+
+    --footer-bg:#A31621;
+    --footer-text: white;
+}
+
 body {
     display: flex;
     flex-direction: column;
 
+    background-color: var(--body-bg);
+
     justify-content: space-between;
     align-items: center;
 
-    height: 98.5vh;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+h3 {
+    margin-top: 0;
+    background-color: var(--game-header-bg);
+}
+
+.header, .footer {
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+}
+
+.header {
+    background-color: var(--header-bg);
+}
+
+.footer {
+    background-color: var(--footer-bg);
+}
+
+a {
+    color: var(--header-text);
+}
+
+.copyright {
+    color: var(--footer-text);
 }
 
 .game-container {
     width: 24em;
+
+    background-color: var(--game-container-bg);
 }
 
 h3 {
@@ -33,7 +82,7 @@ h3 {
 
 #main-display {
     /* height: 5cm; */
-    background-color:pink;
+    background-color: var(--game-display-bg);
     margin: 16px 0 0 0;
 
     padding: 5px;
@@ -65,6 +114,9 @@ h3 {
     border-radius: 100%;
 
     box-shadow: 0px 0px 4px black;
+
+    transition-duration: 0.15s;
+    transition-property: all;
 }
 
 .score.pipglow {
@@ -176,7 +228,7 @@ img {
     width: 75px;
     height: 75px;
 
-    background-color: rgb(255, 255, 255);
+    background-color: var(--choice-spinner-bg);
     border-radius: 8px;
 }
 
@@ -238,11 +290,17 @@ img {
     width: 28em;
 }
 
-.header .inner, ul {
+ul {
     display: flex;
     justify-content: space-between;
     padding: 0;
     margin: 0;
+}
+
+.inner {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
 }
 
 ul {
@@ -251,7 +309,6 @@ ul {
 
 .header a {
     text-decoration: none;
-    color: black;
 }
 
 ul {
