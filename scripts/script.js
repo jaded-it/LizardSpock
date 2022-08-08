@@ -196,6 +196,8 @@ function fastSelection() {
 
         if (player_fast_iterator === player_selection) {
             is_player_selected = true;
+            player_choice_img.classList.add("anim-radius");
+            player_choice_img.classList.add(ALL_ACTIONS[player_selection]);
             computerSelect();
         }
     }
@@ -205,6 +207,8 @@ function fastSelection() {
 
         if (computer_fast_iterator === computer_selection) {
             is_computer_selected = true;
+            computer_choice_img.classList.add("anim-radius");
+            computer_choice_img.classList.add(ALL_ACTIONS[computer_selection]);
             playerSelect(player_selection, computer_selection);
         }
     }
@@ -293,6 +297,16 @@ function game() {
                 player_score_pips[i].classList.remove("pipglow");
                 computer_score_pips[i].classList.remove("pipglow");
             }
+        }
+
+        let player_choice_img = document.querySelector(".player-choice-display");
+        let computer_choice_img = document.querySelector(".computer-choice-display");
+
+        player_choice_img.classList.remove("anim-radius");
+        computer_choice_img.classList.remove("anim-radius");
+        for (let i = 0; i < ALL_ACTIONS.length; i++) {
+            player_choice_img.classList.remove(ALL_ACTIONS[i]);
+            computer_choice_img.classList.remove(ALL_ACTIONS[i]);
         }
 
         let combat_state_text = document.querySelector(".combat-state");

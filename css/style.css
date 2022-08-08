@@ -114,31 +114,31 @@ h3 {
     border-radius: 50%;
 }
 
-.rock {
+.rock, .display.rock {
     background-color: lightcoral;
 }
 
-.paper {
+.paper, .display.paper {
     background-color: lightgoldenrodyellow;
 }
 
-.scissors {
+.scissors, .display.scissors {
     background-color: plum;
 }
 
-.lizard {
+.lizard, .display.lizard {
     background-color: lightgreen;
 }
 
-.spock {
+.spock, .display.spock {
     background-color: lightblue;
 }
 
-.zombie {
+.zombie, .display.zombie {
     background-color: burlywood;
 }
 
-.LHC {
+.LHC, .display.LHC {
     background-color: lightgrey;
 }
 
@@ -170,13 +170,12 @@ img {
     margin: 16px 16px;
 }
 
-.choice img {
+.display {
     width: 75px;
     height: 75px;
 
     background-color: rgb(255, 255, 255);
     border-radius: 8px;
-
 }
 
 #computer-segment {
@@ -221,4 +220,14 @@ img {
 
 .hidden {
     visibility: hidden
+}
+
+.display {
+    transition-duration: 0.15s;
+    transition-property: background-color, border-radius, box-shadow;
+}
+
+.display.anim-radius {
+    border-radius: 50%;
+    box-shadow: 0 0 12px black;
 }
