@@ -38,11 +38,6 @@ function getComputerActionIndex() {
     return getRandomActionIndex();
 }
 
-// Converts an action (string) to an action_index (integer)
-function convertActionToIndex(action) {
-    return ALL_ACTIONS.findIndex( (current_item) => {return current_item === action} );
-}
-
 // Determines which verb to use for the winning action e.g. cuts, disproves, vaporizes, etc.
 function getVictoryVerb(winning_action_index, losing_action_index) {
     let distance_to_left;
